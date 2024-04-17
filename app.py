@@ -36,7 +36,7 @@
 #     )
 #     return response.choices[0].message.content
 
-
+# Is the irrigation mode (localized, not applicable, gravity, aspersion, pivot, gravity_localized, localized_pivot) used the same for each crop type (Zucchini, Potato, Tomato, Green bean, Coriander and parsley, Cucumber, Mint, Eggplant, Carrot, Onion, Cauliflower, Green cabbage, Celery, Kiwat tomato, Lettuce, Artichoke, Strawberry, Hot pepper, Helda bean, Absinthe, Blueberry, Jerusalem artichoke, Watermelon, Turnip, Pepper, Endive)
 # # Cell 5: Streamlit UI for Chart Decision
 # data_type = st.selectbox("Select the data type:", ("Categorical", "Numerical", "Ordinal", "Continuous", "Discrete"))
 # question_about_data = st.text_area("Enter the question you are asking about this data:")
@@ -77,12 +77,12 @@ def analyze_text(data_type, question):
         {"role": "system", "content": f"Suggest the most appropriate type of chart to use for a {data_type} data type when the question is: \n{question}"}
     ]
 
-    response = client.Completions.create(
+    response = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=0  # Lower temperature for less random responses
     )
-    return response.choices[0].text.strip()
+    return response.choices[0].message.content
 
 # Cell 4: Function to generate the image
 def generate_image(text):
