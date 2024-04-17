@@ -40,7 +40,6 @@ def analyze_text(data_type, question):
     return response.choices[0].message.content
 
 
-# Cell 4: Streamlit UI for Chart Decision (Modified)
 # Cell 4: Streamlit UI for Chart Decision (Modified to include variable names and types)
 st.markdown("### Input your data variables and their corresponding types")
 
@@ -70,11 +69,3 @@ if st.button('Decide Chart Type'):
             message = f"Variables: {', '.join([f'{name} ({dtype})' for name, dtype in variable_info])}. Question: {question_about_data}"
             chart_type_suggestion = analyze_text(message)
             st.success(f"The appropriate chart type for your data and question might be: {chart_type_suggestion}")
-
-  
-if st.button('Decide Chart Type'):
-    with st.spinner('Analyzing your data and question...'):
-        chart_type_suggestion = analyze_text(data_type, question_about_data)
-        st.success(f"The appropriate chart type for your data and question might be: {chart_type_suggestion}")
-
-
