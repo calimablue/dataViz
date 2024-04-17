@@ -92,7 +92,7 @@ def generate_image(data_type, question):
 
     response = client.images.generate(
         model="dall-e-3",
-        prompt=text,
+        prompt=data_type, question,
         size="1024x1024",
         quality="standard",
         n=1,
