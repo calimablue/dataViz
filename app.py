@@ -112,7 +112,7 @@ if st.button('Decide Chart Type'):
         st.success(f"The appropriate chart type for your data and question might be: {chart_type_suggestion}")
 
     with st.spinner('Generating Thumbnail...'):
-        thumbnail_url = generate_image(user_input)  # Consider adjusting the prompt for image generation if needed
+        thumbnail_url = generate_image(data_type, question_about_data)  # Consider adjusting the prompt for image generation if needed
         st.image(thumbnail_url, caption='Generated Thumbnail')
 
 
