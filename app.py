@@ -39,36 +39,42 @@ def analyze_text(data_type, question):
     )
     return response.choices[0].message.content
 
-# # Cell 4: Function to generate the image
-# def generate_image(data_type, question):
-#     if not api_key:
-#         st.error("OpenAI API key is not set. Please set it in your environment variables.")
-#         return
-
-#     response = client.images.generate(
-#         model="dall-e-3",
-#         prompt="data_type, question",
-#         size="1024x1024",
-#         quality="standard",
-#         n=1,
-#     )
-
-#     # Assuming the API returns an image URL; adjust based on actual response structure
-#     return response.data[0].url
 
 # Cell 4: Streamlit UI for Chart Decision (Modified)
-data_type = st.selectbox("Select the data type:", ("Categorical", "Numerical", "Ordinal", "Continuous", "Discrete"))
-variables = st.text_input("Enter your variables (comma-separated, e.g., Age, Salary, Department):")
+# Cell 4: Streamlit UI for Chart Decision (Modified to include variable names and types)
+st.markdown("### Input your data variables and their corresponding types")
+
+# Create an empty list to hold variable names and types
+variable_info = []
+
+# Use Streamlit's beta_expander to allow users to input multiple variables
+with st.expander("Add your variables and types"):
+    for i in range(5):  # Allow up to 5 variables for simplicity; adjust as needed
+        col1, col2 = st.columns(2)
+        with col1:
+            variable_name = st.text_input(f"Variable Name {i+1}", key=f"var_name_{i}")
+        with col2:
+            data_type = st.selectbox(f"Data Type {i+1}", ("Categorical", "Numerical", "Ordinal", "Continuous", "Discrete"), key=f"data_type_{i}")
+        # Only add to the list if variable name is not empty
+        if variable_name:
+            variable_info.append((variable_name, data_type))
+
 question_about_data = st.text_area("Enter the question you are asking about this data:")
 
+if st.button('Decide Chart Type'):
+    if not variable_info:  # Check if at least one variable has been entered
+        st.error("Please enter at least one variable name and type.")
+    else:
+        with st.spinner('Analyzing your data and question...'):
+            # Construct a message to send to the analyze_text function
+            message = f"Variables: {', '.join([f'{name} ({dtype})' for name, dtype in variable_info])}. Question: {question_about_data}"
+            chart_type_suggestion = analyze_text(message)
+            st.success(f"The appropriate chart type for your data and question might be: {chart_type_suggestion}")
+
+  
 if st.button('Decide Chart Type'):
     with st.spinner('Analyzing your data and question...'):
         chart_type_suggestion = analyze_text(data_type, question_about_data)
         st.success(f"The appropriate chart type for your data and question might be: {chart_type_suggestion}")
-
-    # with st.spinner('Generating Thumbnail...'):
-    #     thumbnail_url = generate_image(data_type, question_about_data)  # Consider adjusting the prompt for image generation if needed
-    #     st.image(thumbnail_url, caption='Generated Thumbnail')
-
 
 
