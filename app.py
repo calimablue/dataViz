@@ -29,12 +29,12 @@
 #         {"role": "system", "content": "Suggest the most appropriate type of chart to use for a {data_type} data type when the question is: \n{question}"}
 #     ]
 
-#     response = openai.Completion.create(
+#     response = client.chat.completions.create(
 #         model = model,
 #         messages = messages,
 #         temperature = 0  # Lower temperature for less random responses
 #     )
-#     return response.choices[0].text.strip()
+#     return response.choices[0].message.content
 
 
 # # Cell 5: Streamlit UI for Chart Decision
