@@ -111,10 +111,6 @@ if st.button('Decide Chart Type'):
         chart_type_suggestion = analyze_text(data_type, question_about_data)
         st.success(f"The appropriate chart type for your data and question might be: {chart_type_suggestion}")
 
-        # Assuming you have a function to map chart suggestions to image URLs (you will need to implement this)
-        chart_image_url = get_chart_image_url(chart_type_suggestion)
-        st.image(chart_image_url, caption=f'Sample {chart_type_suggestion}')
-
     with st.spinner('Generating Thumbnail...'):
         thumbnail_url = generate_image(user_input)  # Consider adjusting the prompt for image generation if needed
         st.image(thumbnail_url, caption='Generated Thumbnail')
