@@ -85,7 +85,7 @@ def analyze_text(data_type, question):
     return response.choices[0].message.content
 
 # Cell 4: Function to generate the image
-def generate_image(text):
+def generate_image(data_type, question):
     if not api_key:
         st.error("OpenAI API key is not set. Please set it in your environment variables.")
         return
