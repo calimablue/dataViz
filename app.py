@@ -69,4 +69,4 @@ if st.button('Decide Chart Type'):
             # Construct a single message from variable info for display
             data_types = ', '.join([dtype for _, dtype in variable_info_display])
             chart_type_suggestion = analyze_text(data_types, question_about_data)
-            st.success(f"The appropriate chart type for your data and question might be: {chart_type_suggestion}")
+            st.success(f"{chart_type_suggestion}")
